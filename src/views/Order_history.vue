@@ -8,10 +8,10 @@
     <th></th>
   </tr>
   <tr v-for="(item,index) in items" :key="index">
-    <td>{{item.name}}</td>
-    <td><img :src="images[index]" width="200px" height="150px"></td>
-    <td>{{item.price}}</td>
-    <td>{{item.count}}</td>
+    <td v-if="item.user_id==user.id">{{item.name}}</td>
+    <td v-if="item.user_id==user.id"><img :src="images[index]" width="200px" height="150px"></td>
+    <td v-if="item.user_id==user.id">{{item.price}}</td>
+    <td v-if="item.user_id==user.id">{{item.count}}</td>
    
     
     

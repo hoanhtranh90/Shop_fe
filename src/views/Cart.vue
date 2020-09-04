@@ -9,11 +9,11 @@
     <th><b-button variant="primary" @click="Order_succes(items)">Đặt hàng</b-button> </th>
   </tr>
   <tr v-for="(item,index) in items" :key="index">
-    <td>{{item.name}}</td>
-    <td><img :src="images[index]" width="200px" height="150px"></td>
-    <td>{{item.price}}</td>
-    <td>{{item.count}}</td>
-    <td>
+    <td v-if="item.user_id==user.id">{{item.name}}</td>
+    <td v-if="item.user_id==user.id"><img :src="images[index]" width="200px" height="150px"></td>
+    <td v-if="item.user_id==user.id">{{item.price}}</td>
+    <td v-if="item.user_id==user.id">{{item.count}}</td>
+    <td v-if="item.user_id==user.id">
 
           <b-button variant="danger" @click="remove_data(item.id)">Xóa</b-button> 
     </td>
@@ -54,9 +54,7 @@ import axios from "axios";
         );
       });
     });
-  axios.get("/api/category").then((response) => {
-    this.category = response.data;
-  })
+
   },
   
   methods: {
@@ -70,8 +68,8 @@ import axios from "axios";
     Order_succes: function (items) {
     axios.post('/admin/order_succes',{
        data:items,
-       user_id:this.user.id,
-     }).then(() => {
+     })
+     .then(() => {
                     alert("đặt hàng thành công");
                     this.$router.replace({ name: 'Order_history' });
                 })

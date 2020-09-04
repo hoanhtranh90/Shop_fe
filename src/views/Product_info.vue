@@ -30,6 +30,7 @@
 
 <script>
 import axios from "axios";
+  import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -52,12 +53,20 @@ export default {
       this.category = response.data;
     });
   },
+   computed: {
+      ...mapGetters({
+        authenticated: 'auth/authenticated',
+        user: 'auth/user',
+      })
+    },
   methods: {
     add_data(){
       axios.post('/admin/add_order_product',
       {
         id:this.$route.params.id,
-      }) .then(() => {
+        user_id:this.user.id,
+      })
+       .then(() => {
                     alert("Thêm Giỏ thành công");
                     this.$router.replace({ name: 'Cart' });
                 })
